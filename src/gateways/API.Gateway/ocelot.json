@@ -1,0 +1,64 @@
+{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+            "Host": "orders",
+            "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/ordering/{everything}",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+            "Host": "deliveries",
+            "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/deliveries/{everything}",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/order/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+            "Host": "orders",
+            "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/order/",
+      "UpstreamHttpMethod": [ "Get" ],
+      "Key": "order"
+    },
+    {
+      "DownstreamPathTemplate": "/api/delivery/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+            "Host": "deliveries",
+            "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/delivery/",
+      "UpstreamHttpMethod": [ "Get" ],
+      "Key": "delivery"
+    }
+  ],
+  "Aggregates": [
+    {
+      "ReRouteKeys": [
+        "delivery",
+        "order"
+      ],
+      "UpstreamPathTemplate": "/api/order-delivery/{id}"
+    }
+  ],
+  "GlobalConfiguration": {}
+}
